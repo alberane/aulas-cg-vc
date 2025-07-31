@@ -1,0 +1,38 @@
+# Ignora todos os .venv dentro das subpastas (como aula1/.venv, aula2/.venv, etc.)
+**/.venv/
+
+# Arquivos de cache do Python
+**/__pycache__/
+**/*.py[cod]
+**/*$py.class
+
+# Arquivos temporários de sistema
+**/.DS_Store
+**/Thumbs.db
+
+# Logs
+**/*.log
+
+# Pytest, tox, coverage
+**/.pytest_cache/
+**/.tox/
+**/.coverage
+**/coverage.xml
+**/*.cover
+**/nosetests.xml
+
+# Build e distribuição
+**/build/
+**/dist/
+**/*.egg-info/
+
+# Checkpoints de Jupyter (se forem usados em algum momento)
+**/.ipynb_checkpoints/
+
+# Arquivos temporários de IDEs (opcional)
+**/.vscode/
+**/.idea/
+
+# SQLite databases (caso usados)
+**/*.sqlite3
+**/*.db
