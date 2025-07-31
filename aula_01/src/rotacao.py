@@ -23,7 +23,7 @@ R = np.array([
 # A matriz de rotação é definida como:
 # R = [[cos(θ), -sin(θ), 0],
 #      [sin(θ),  cos(θ), 0],
-#      [0,       0,      1]]
+#      [0,       0,     1]]
 # onde θ é o ângulo de rotação em radianos. A multiplicação da matriz de rotação pela coordenada homogênea
 # do ponto resulta em um novo ponto que foi rotacionado pelo ângulo θ em torno da origem.
 
