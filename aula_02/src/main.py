@@ -1,16 +1,28 @@
-# This is a sample Python script.
+import numpy as np
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+# Define quatro pontos de um quadrado
+pontos = np.array([
+    [0, 0],
+    [1, 0],
+    [1, 1],
+    [0, 1]
+])
 
+def rotacionar(pontos, angulo_graus):
+    angulo_rad = np.deg2rad(angulo_graus)
+    matriz_rot = np.array([
+        [np.cos(angulo_rad), -np.sin(angulo_rad)],
+        [np.sin(angulo_rad),  np.cos(angulo_rad)]
+    ])
+    return pontos @ matriz_rot.T
 
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+def transladar(pontos, deslocamento):
+    return pontos + deslocamento
 
+# Teste: rotaciona 90 graus e translada em (2, 3)
+pontos_rot = rotacionar(pontos, 90)
+pontos_final = transladar(pontos_rot, np.array([2, 3]))
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+print("Pontos originais:\n", pontos)
+print("Após rotação de 90°:\n", pontos_rot)
+print("Após translação (2,3):\n", pontos_final)
