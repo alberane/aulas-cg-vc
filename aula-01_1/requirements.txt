@@ -1,23 +1,23 @@
-# requirements.txt - Dependências da disciplina de Computação Gráfica
+# requirements.txt - Dependências da aula 01_1
 
 # OpenGL para Python
-PyOpenGL==3.1.7
+PyOpenGL==3.1.9
 PyOpenGL-accelerate==3.1.9
 
 # Biblioteca para criação de janelas
-glfw==2.6.2
+glfw==2.9.0
 
 # Computação numérica
-numpy==1.24.3
+numpy==2.3.0
 
 # Processamento de imagens e visão computacional
-opencv-python==4.8.1.78
+opencv-python==4.11.0.86
 
 # Visualização e gráficos
-matplotlib==3.7.2
+matplotlib==3.10.5
 
 # Pillow para manipulação de imagens
-Pillow==10.0.0
+Pillow==11.3.0
 
 # Opcional: ModernGL para OpenGL moderno
-# moderngl==5.8.2
+moderngl==5.12.0
