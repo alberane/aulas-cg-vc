@@ -30,8 +30,26 @@ O repositório está organizado em pastas separadas para cada aula, facilitando 
     source venv/bin/activate
     ```
    
-4. **Instale as dependências:**
+Pode ser necessário fechar e abrir o terminal novamente.
+
+4. **Testanto o VENV:**
+
+   ```bash
+   which python
+   ```
+O comando deve retornar o caminho do interpretador python, e ele deve apontar para o VENV.
+   
+5. **Instale as dependências:**
+
    ```bash
    pip install -r requirements.txt
    ```
-   
+
+6. **Atualizando o requirements.txt:**
+
+   Após instalar ou remover pacotes no ambiente virtual, atualize o arquivo `requirements.txt` com:
+
+   ```bash
+   pip freeze > requirements.txt
+    ```
+
