@@ -32,6 +32,8 @@
 **/.ipynb_checkpoints/
 
 # Arquivos temporários de IDEs (opcional)
+.vscode/
+.idea/
 **/.vscode/
 **/.idea/
 
