@@ -1,33 +1,18 @@
 import numpy as np
+import matplotlib.pyplot as plt
 
-# Ângulo em graus e radianos
-theta = 45
-rad = np.deg2rad(theta)
-
-# Ponto original em coordenadas homogêneas
-p = np.array([1, 0, 1])
-
-# Matriz de rotação
+theta = np.radians(45)
 R = np.array([
-    [np.cos(rad), -np.sin(rad), 0],
-    [np.sin(rad),  np.cos(rad), 0],
-    [0,           0,            1]
+    [np.cos(theta), -np.sin(theta), 0],
+    [np.sin(theta),  np.cos(theta), 0],
+    [0, 0, 1]
 ])
+ponto = np.array([2, 1, 1])
+novo_ponto = R @ ponto
 
-# A rotação é uma transformação geométrica que gira um ponto em torno da origem
-# (ou de outro ponto, se ajustado) em um determinado ângulo. Em coordenadas homogêneas,
-# a rotação pode ser representada por uma matriz que, ao ser multiplicada pelo vetor do ponto,
-# resulta em um novo ponto rotacionado. A matriz de rotação é construída usando funções trigonométricas
-# (seno e cosseno) para calcular as novas coordenadas do ponto após a rotação.
-#
-# A matriz de rotação é definida como:
-# R = [[cos(θ), -sin(θ), 0],
-#      [sin(θ),  cos(θ), 0],
-#      [0,       0,     1]]
-# onde θ é o ângulo de rotação em radianos. A multiplicação da matriz de rotação pela coordenada homogênea
-# do ponto resulta em um novo ponto que foi rotacionado pelo ângulo θ em torno da origem.
-
-# Aplica a rotação
-p_rotacionado = R @ p
-print("Ponto original:", p)
-print("Ponto rotacionado (45°):", p_rotacionado)
+plt.scatter(ponto[0], ponto[1], color='blue', label='Original')
+plt.scatter(novo_ponto[0], novo_ponto[1], color='orange', label='Rotacionado')
+plt.legend()
+plt.title("Rotação 2D (45°)")
+plt.grid(True)
+plt.savefig("rotacao.png")
