@@ -1,6 +1,6 @@
 ## Requisitos
 
-- Python 3.8 ou superior
+- Python 3.8 ou superior 
 - Sistema Linux (recomendado)
 - Placa de vídeo compatível com OpenGL 3.3 (para o exemplo OpenGL)
 
