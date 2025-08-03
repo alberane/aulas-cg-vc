@@ -1,0 +1,7 @@
+numpy==2.3.2
+pygame==2.6.1
+pyglet==2.1.6
+pyglfw==0.2.2
+PyOpenGL==3.1.9
+PyOpenGL-accelerate==3.1.9
+trimesh==4.7.1
