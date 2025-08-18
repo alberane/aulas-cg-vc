@@ -1,6 +1,6 @@
 # Blender 4.5.0
 # www.blender.org
-mtllib __cubo-01.mtl
+mtllib cubo-01.mtl
 g Cube_Mesh
 v 1.000000 1.770066 -1.760316
 v 1.000000 -0.229934 -1.760316
