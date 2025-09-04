@@ -55,7 +55,7 @@ def load_obj(filename):
 # Desenhar objeto
 def draw_object(vertices, faces, materials):
     # Cor padrão
-    glColor3f(0.0, 0.5, 0.0)  # Cor da superfície
+    glColor3f(0.1, 0.5, 0.0)  # Cor da superfície
 
     for face in faces:
         if len(face) == 3:  # Triângulo
@@ -74,7 +74,7 @@ def draw_object(vertices, faces, materials):
 
     # Desenhar wireframe por cima
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE)
-    glColor3f(0, 0.5, 0)  # Cor para wireframe (RGB)
+    glColor3f(1, 0.5, 0)  # Cor para wireframe (RGB)
 
     # Desenhar faces novamente como wireframe
     for face in faces:

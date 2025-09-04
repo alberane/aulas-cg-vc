@@ -13,10 +13,10 @@ for i, (xi, yi, zi) in enumerate(pontos):
 
 
 # Projeta cada ponto nos planos XY, XZ e YZ com linhas tracejadas azuis
-# for xi, yi, zi in pontos:
-#     ax.plot([xi, xi], [yi, yi], [0, zi], linestyle='dashed', color='blue')  # projeção no plano XY
-#     ax.plot([xi, xi], [0, yi], [zi, zi], linestyle='dashed', color='blue')  # projeção no plano XZ
-#     ax.plot([0, xi], [yi, yi], [zi, zi], linestyle='dashed', color='blue')  # projeção no plano YZ
+for xi, yi, zi in pontos:
+    ax.plot([xi, xi], [yi, yi], [0, zi], linestyle='dashed', color='blue')  # projeção no plano XY
+    ax.plot([xi, xi], [0, yi], [zi, zi], linestyle='dashed', color='blue')  # projeção no plano XZ
+    ax.plot([0, xi], [yi, yi], [zi, zi], linestyle='dashed', color='blue')  # projeção no plano YZ
 
 
 ax.set_title("Coordenadas 3D")

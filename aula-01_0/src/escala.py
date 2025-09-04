@@ -7,7 +7,7 @@ S = np.array([
     [0, 0, 1]
 ])
 ponto = np.array([2, 2, 1])
-novo_ponto = S @ ponto
+novo_ponto = S @ ponto # Multiplicação matricial para escalar o ponto
 
 plt.scatter(ponto[0], ponto[1], color='blue', label='Original')
 plt.scatter(novo_ponto[0], novo_ponto[1], color='green', label='Escalado')
