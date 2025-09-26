@@ -76,8 +76,8 @@ def projetar_na_esfera(x, y, largura, altura):
 class VisualizadorTrackball:
     def __init__(self):
         self.largura, self.altura = 800, 600
-        self.rastreando = False # Indica se o mouse está sendo rastreado
-        self.ultima_posicao = None # Última posição do mouse na esfera
+        self.rastreando = False  # Indica se o mouse está sendo rastreado
+        self.ultima_posicao = None  # Última posição do mouse na esfera
 
         # Quatérnio que armazena a orientação atual do objeto
         self.rotacao_atual = np.array([1.0, 0.0, 0.0, 0.0]) # Identidade
