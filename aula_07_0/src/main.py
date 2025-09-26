@@ -132,6 +132,7 @@ class VisualizadorTrackball:
         # Desenha o bule de chá
         glutSolidTeapot(2.5)
 
+
         glPopMatrix() # Restaura a matriz de modelagem
         pygame.display.flip() # Atualiza a tela
 
