@@ -5,6 +5,8 @@ import numpy as np
 class Vector3D:
     """
     Classe para representar e manipular vetores 3D em computação gráfica.
+    Suporta operações básicas como soma, subtração, multiplicação por escalar,
+    cálculo de magnitude, normalização, produto escalar e produto vetorial.
     """
 
     def __init__(self, x=0.0, y=0.0, z=0.0):
