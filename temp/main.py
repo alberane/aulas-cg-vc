@@ -2,6 +2,7 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 from OpenGL.GLU import *
 import math
+import sys
 
 # Vértices/faces
 phi = (1.0 + math.sqrt(5.0)) / 2.0
