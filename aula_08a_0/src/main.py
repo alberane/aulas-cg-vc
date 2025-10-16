@@ -39,11 +39,13 @@ def configurar_projecao():
 
     if MODO_PROJECAO == "PERSPECTIVA":
         # Projeção Perspectiva: simula profundidade (frustum)
+        # gluPerspective(fov, aspect, near, far)
         gluPerspective(45, (LARGURA_JANELA / ALTURA_JANELA), 0.1, 50.0)
         print("Modo: PERSPECTIVA (Sensação de profundidade)")
 
     elif MODO_PROJECAO == "ORTOGRAFICA":
         # Projeção Ortográfica: preserva dimensões
+        #glOrtho(left, right, bottom, top, near, far)
         glOrtho(-3, 3, -3, 3, 0.1, 50.0)
         print("Modo: ORTOGRÁFICA (Dimensões preservadas)")
 
