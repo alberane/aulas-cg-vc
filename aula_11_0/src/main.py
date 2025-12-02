@@ -12,7 +12,7 @@ def detectar_objetos(caminho_imagem):
 
     # Carregar o modelo YOLO
     print("Carregando modelo YOLO...")
-    model = YOLO('yolov8n.pt')
+    model = YOLO('yolov8m.pt')
 
     # Carregar a imagem
     print(f"Carregando imagem: {caminho_imagem}")

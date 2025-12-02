@@ -9,7 +9,7 @@ def main():
 
     # Carregar o modelo YOLO (usando YOLOv8n - versão nano, mais rápida)
     print("Carregando modelo YOLO...")
-    model = YOLO('yolov8n.pt')
+    model = YOLO('yolov8s.pt')
 
     # Inicializar webcam
     print("Inicializando webcam...")
