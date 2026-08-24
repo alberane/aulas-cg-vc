@@ -1,5 +1,5 @@
 """
-Aula 1 - Introdução à Computação Gráfica - ALberane
+Aula 1 - Introdução à Computação Gráfica - Alberane
 Primeiro programa: Janela OpenGL básica com triângulo colorido
 
 Este programa demonstra:

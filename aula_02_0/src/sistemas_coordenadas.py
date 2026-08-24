@@ -1,4 +1,10 @@
+import os
 import sys
+
+# Força o PyOpenGL a usar a plataforma GLX padrão
+os.environ['PYOPENGL_PLATFORM'] = 'glx'
+
+
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *
