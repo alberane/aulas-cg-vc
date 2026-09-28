@@ -5,7 +5,7 @@ from OpenGL.GL import *
 from OpenGL.GLUT import *
 import numpy as np
 
-# --- Funções de Quatérnios (traduzidas) ---
+# --- Funções de Quatérnios ---
 
 def normalizar(vetor):
     """Normaliza um vetor."""
@@ -45,7 +45,7 @@ def quat_para_matriz(q):
         [0,               0,               0,               1]
     ], dtype=np.float32)
 
-# --- Funções do Trackball (traduzidas) ---
+# --- Funções do Trackball ---
 
 def projetar_na_esfera(x, y, largura, altura):
     """Mapeia as coordenadas 2D da tela para um vetor 3D na hemisfera."""
@@ -125,6 +125,35 @@ class VisualizadorAvancado:
 
         pygame.display.flip()
 
+    # def processar_evento(self, evento):
+    #     """Processa um único evento do Pygame."""
+    #     if evento.type == pygame.MOUSEBUTTONDOWN:
+    #         # Rotação (botão esquerdo)
+    #         if evento.button == 1:
+    #             self.rastreando_rotacao = True
+    #             self.ultima_pos_rotacao = projetar_na_esfera(evento.pos[0], evento.pos[1], self.largura, self.altura)
+    #         # Panorâmica (botão direito)
+    #         elif evento.button == 3:
+    #             self.rastreando_pan = True
+    #             self.ultima_pos_pan = evento.pos
+    #         # Zoom (roda de rolagem)
+    #         elif evento.button == 4: # Rolar para cima
+    #             self.nivel_zoom = min(-5.1, self.nivel_zoom + 0.5)
+    #         elif evento.button == 5: # Rolar para baixo
+    #             self.nivel_zoom = max(-50.0, self.nivel_zoom - 0.5)
+    #
+    #     elif evento.type == pygame.MOUSEBUTTONUP:
+    #         if evento.button == 1:
+    #             self.rastreando_rotacao = False
+    #         elif evento.button == 3:
+    #             self.rastreando_pan = False
+    #
+    #     elif evento.type == pygame.MOUSEMOTION:
+    #         if self.rastreando_rotacao:
+    #             self.processar_rotacao(evento)
+    #         if self.rastreando_pan:
+    #             self.processar_pan(evento)
+
     def processar_evento(self, evento):
         """Processa um único evento do Pygame."""
         if evento.type == pygame.MOUSEBUTTONDOWN:
@@ -136,11 +165,15 @@ class VisualizadorAvancado:
             elif evento.button == 3:
                 self.rastreando_pan = True
                 self.ultima_pos_pan = evento.pos
-            # Zoom (roda de rolagem)
-            elif evento.button == 4: # Rolar para cima
-                self.nivel_zoom = min(-5.1, self.nivel_zoom + 0.5)
-            elif evento.button == 5: # Rolar para baixo
-                self.nivel_zoom = max(-50.0, self.nivel_zoom - 0.5)
+
+        elif evento.type == pygame.MOUSEWHEEL:
+            # Tratamento moderno para o scroll do mouse (Zoom In / Zoom Out)
+            # evento.y vale 1 para cima (zoom in) e -1 para baixo (zoom out)
+            fator_zoom = 1.0
+            self.nivel_zoom += evento.y * fator_zoom
+
+            # Trava os limites do zoom para não atravessar os planos near (5.0) e far (60.0) do glFrustum
+            self.nivel_zoom = max(-55.0, min(-6.0, self.nivel_zoom))
 
         elif evento.type == pygame.MOUSEBUTTONUP:
             if evento.button == 1:

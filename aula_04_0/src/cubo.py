@@ -1,3 +1,8 @@
+import os
+
+# Define a variável de ambiente antes de carregar as bibliotecas
+os.environ['PYOPENGL_PLATFORM'] = 'glx'
+
 from OpenGL.GL import *
 from OpenGL.GLU import *
 from OpenGL.GLUT import *

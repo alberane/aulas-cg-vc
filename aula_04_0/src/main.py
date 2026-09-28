@@ -1,4 +1,9 @@
 # -*- coding: utf-8 -*-
+import os
+
+# Define a variável de ambiente antes de carregar as bibliotecas
+os.environ['PYOPENGL_PLATFORM'] = 'glx'
+
 import sys
 import numpy as np
 from OpenGL.GL import *

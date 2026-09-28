@@ -49,7 +49,7 @@ def executar():
                 sys.exit()
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
-        glClearColor(0.1, 0.1, 0.1, 1.0)  # Cor de fundo cinza escuro
+        glClearColor(1, 1, 1, 1.0)  # Cor de fundo cinza escuro
 
         # --- Seção 1: Cores primárias sólidas ---
         desenhar_quadrado(150, 450, 50, VERMELHO)
@@ -58,7 +58,7 @@ def executar():
 
         # --- Seção 2: Mistura de cores aditivas ---
         tamanho = 80
-        transparencia = 0.7  # Transparência para ver a sobreposição
+        transparencia = 0.5  # Transparência para ver a sobreposição
 
         # Amarelo (Vermelho + Verde)
         desenhar_quadrado(200, 200, tamanho, VERMELHO, transparencia)

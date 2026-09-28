@@ -218,7 +218,7 @@ def main():
         draw_object(vertices, faces, materials)
 
         pygame.display.flip() # Atualizar tela
-        clock.tick(30) # Limitar o FPS
+        clock.tick(60) # Limitar o FPS
 
 if __name__ == "__main__":
     main()

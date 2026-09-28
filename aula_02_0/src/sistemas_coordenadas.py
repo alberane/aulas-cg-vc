@@ -25,7 +25,7 @@ class CoordinateSystem:
         """Configurações iniciais do OpenGL."""
         glEnable(GL_DEPTH_TEST) # Ativar teste de profundidade
         glDepthFunc(GL_LESS) # Função de teste de profundidade
-        glClearColor(0.1, 0.1, 0.1, 1.0) # Cor de fundo
+        glClearColor(0.2, 0.2, 0.2, 1.0) # Cor de fundo
 
         # Configurar iluminação básica
         glEnable(GL_LIGHTING) # Ativar iluminação
@@ -48,7 +48,7 @@ class CoordinateSystem:
             length: Comprimento dos eixos
         """
         glDisable(GL_LIGHTING) # Desativar iluminação para desenhar eixos
-        glLineWidth(3.0) # Definir largura da linha
+        glLineWidth(6.0) # Definir largura da linha
         glBegin(GL_LINES) # Iniciar desenho de linhas
 
         # Eixo X (vermelho)
