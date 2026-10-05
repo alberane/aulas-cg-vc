@@ -1,3 +1,8 @@
+"""
+Código reescrito com variáveis, objetos, funções e classes traduzidos para o português,
+mantendo todos os recursos e lógica da aplicação original presente no arquivo atividade.py[cite: 1].
+"""
+
 import sys
 import math
 import numpy as np
@@ -10,8 +15,8 @@ from OpenGL.GLU import *
 # =====================================================================
 # PARTE 1: MODELAGEM GEOMÉTRICA BASE
 # =====================================================================
-# Construção do Modelo Geométrico Base (Pirâmide de base quadrada)
-VERTICES = np.array([
+# Construção do Modelo Geométrico Base (Pirâmide de base quadrada)[cite: 1]
+VERTICES_PIRAMIDE = np.array([
     [0.0, 1.0, 0.0],  # 0: Topo
     [-1.0, -1.0, 1.0],  # 1: Frente-Esquerda
     [1.0, -1.0, 1.0],  # 2: Frente-Direita
@@ -19,21 +24,21 @@ VERTICES = np.array([
     [-1.0, -1.0, -1.0]  # 4: Trás-Esquerda
 ], dtype=np.float32)
 
-FACES = [
-    (0, 1, 2),  # Face Frente
+FACES_PIRAMIDE = [
+    (0, 1, 2),  # Face Frontal
     (0, 2, 3),  # Face Direita
-    (0, 3, 4),  # Face Trás
+    (0, 3, 4),  # Face Traseira
     (0, 4, 1),  # Face Esquerda
-    (1, 4, 3),  # Base triângulo 1
-    (1, 3, 2)  # Base triângulo 2
+    (1, 4, 3),  # Triângulo 1 da Base
+    (1, 3, 2)  # Triângulo 2 da Base
 ]
 
 
 # =====================================================================
 # PARTE 2: TRANSFORMAÇÕES GEOMÉTRICAS E ÁLGEBRA LINEAR
 # =====================================================================
-def mat_translation(tx, ty, tz):
-    """ Matriz 4x4 de Translação em coordenadas homogêneas """
+def matriz_translacao(tx, ty, tz):
+    """ Retorna uma Matriz 4x4 de Translação em coordenadas homogêneas[cite: 1]. """
     return np.array([
         [1, 0, 0, tx],
         [0, 1, 0, ty],
@@ -42,8 +47,8 @@ def mat_translation(tx, ty, tz):
     ], dtype=np.float32)
 
 
-def mat_scale(sx, sy, sz):
-    """ Matriz 4x4 de Escala em coordenadas homogêneas """
+def matriz_escala(sx, sy, sz):
+    """ Retorna uma Matriz 4x4 de Escala em coordenadas homogêneas[cite: 1]. """
     return np.array([
         [sx, 0, 0, 0],
         [0, sy, 0, 0],
@@ -55,37 +60,43 @@ def mat_scale(sx, sy, sz):
 # =====================================================================
 # PARTE 3: ILUMINAÇÃO, VETORES NORMAIS E MODELOS DE COR (OPENCV)
 # =====================================================================
-def compute_normal(v0, v1, v2):
-    """ Cálculo de Normais: N = (V1 - V0) x (V2 - V0) """
-    u = v1 - v0
-    v = v2 - v0
-    n = np.cross(u, v)
-    norm = np.linalg.norm(n)
-    if norm > 0:
-        n = n / norm
-    return n
+def calcular_normal(v0, v1, v2):
+    """ Cálculo de Vetores Normais usando produto vetorial: N = (V1 - V0) x (V2 - V0)[cite: 1]. """
+    vetor_u = v1 - v0
+    vetor_v = v2 - v0
+    normal = np.cross(vetor_u, vetor_v)
+    magnitude_normal = np.linalg.norm(normal)
+
+    if magnitude_normal > 0:
+        normal = normal / magnitude_normal
+    return normal
 
 
-def get_color_from_opencv(hue_value):
+def obter_cor_pelo_opencv(valor_matiz):
     """
-    Utiliza OpenCV para gerar uma cor baseada em limites de matriz (HSV).
-    Converte para RGB normalizado [0, 1] para o OpenGL.
+    Utiliza a biblioteca OpenCV para gerar uma cor baseada no canal Matiz (HSV)[cite: 1].
+    O valor gerado é convertido para RGB normalizado entre 0 e 1, compatível com OpenGL[cite: 1].
     """
-    # O valor de Hue no OpenCV varia de 0 a 179
-    hsv = np.uint8([[[hue_value, 200, 255]]])
-    rgb = cv2.cvtColor(hsv, cv2.COLOR_HSV2RGB)
-    return rgb[0][0][0] / 255.0, rgb[0][0][1] / 255.0, rgb[0][0][2] / 255.0
+    # O limite do valor de Matiz (Hue) no OpenCV é de 0 a 179[cite: 1]
+    cor_hsv = np.uint8([[[valor_matiz, 200, 255]]])
+    cor_rgb = cv2.cvtColor(cor_hsv, cv2.COLOR_HSV2RGB)
+
+    vermelho = cor_rgb[0][0][0] / 255.0
+    verde = cor_rgb[0][0][1] / 255.0
+    azul = cor_rgb[0][0][2] / 255.0
+
+    return vermelho, verde, azul
 
 
-def setup_lighting():
-    """ Configuração de Iluminação e Sombreamento """
+def configurar_iluminacao():
+    """ Habilita e configura os parâmetros de Iluminação, Sombreamento e Profundidade[cite: 1]. """
     glEnable(GL_LIGHTING)
     glEnable(GL_LIGHT0)
-    glEnable(GL_DEPTH_TEST)  # Habilita teste de profundidade
+    glEnable(GL_DEPTH_TEST)
     glEnable(GL_COLOR_MATERIAL)
     glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE)
 
-    # Componentes da luz ambiente, difusa e especular
+    # Definição dos componentes da luz ambiente, difusa, especular e posicionamento[cite: 1]
     glLightfv(GL_LIGHT0, GL_AMBIENT, [0.2, 0.2, 0.2, 1.0])
     glLightfv(GL_LIGHT0, GL_DIFFUSE, [0.8, 0.8, 0.8, 1.0])
     glLightfv(GL_LIGHT0, GL_SPECULAR, [1.0, 1.0, 1.0, 1.0])
@@ -98,167 +109,185 @@ def setup_lighting():
 # =====================================================================
 # PARTE 4: INTERATIVIDADE AVANÇADA COM QUATÉRNIOS E TRACKBALL VIRTUAL
 # =====================================================================
-class Quaternion:
+class Quaternio:
+    """ Representação matemática de rotações para evitar problemas como o Gimbal Lock[cite: 1]. """
+
     def __init__(self, w=1.0, x=0.0, y=0.0, z=0.0):
         self.w = w
         self.x = x
         self.y = y
         self.z = z
 
-    def multiply(self, q):
-        """ Composição de rotações multiplicando quatérnios """
-        w = self.w * q.w - self.x * q.x - self.y * q.y - self.z * q.z
-        x = self.w * q.x + self.x * q.w + self.y * q.z - self.z * q.y
-        y = self.w * q.y - self.x * q.z + self.y * q.w + self.z * q.x
-        z = self.w * q.z + self.x * q.y - self.y * q.x + self.z * q.w
-        return Quaternion(w, x, y, z)
+    def multiplicar(self, outro_quaternio):
+        """ Realiza a composição de duas rotações multiplicando os quatérnios[cite: 1]. """
+        novo_w = self.w * outro_quaternio.w - self.x * outro_quaternio.x - self.y * outro_quaternio.y - self.z * outro_quaternio.z
+        novo_x = self.w * outro_quaternio.x + self.x * outro_quaternio.w + self.y * outro_quaternio.z - self.z * outro_quaternio.y
+        novo_y = self.w * outro_quaternio.y - self.x * outro_quaternio.z + self.y * outro_quaternio.w + self.z * outro_quaternio.x
+        novo_z = self.w * outro_quaternio.z + self.x * outro_quaternio.y - self.y * outro_quaternio.x + self.z * outro_quaternio.w
+        return Quaternio(novo_w, novo_x, novo_y, novo_z)
 
-    def to_matrix(self):
-        """ Converter para matriz de rotação 4x4 (Layout para OpenGL) """
+    def para_matriz_opengl(self):
+        """ Converte o quatérnio para uma matriz de rotação 4x4 no layout exigido pelo OpenGL[cite: 1]. """
         xx, xy, xz, xw = self.x ** 2, self.x * self.y, self.x * self.z, self.x * self.w
         yy, yz, yw = self.y ** 2, self.y * self.z, self.y * self.w
         zz, zw = self.z ** 2, self.z * self.w
 
-        m = np.identity(4, dtype=np.float32)
-        m[0, 0] = 1 - 2 * (yy + zz)
-        m[0, 1] = 2 * (xy - zw)
-        m[0, 2] = 2 * (xz + yw)
+        matriz = np.identity(4, dtype=np.float32)
+        matriz[0, 0] = 1 - 2 * (yy + zz)
+        matriz[0, 1] = 2 * (xy - zw)
+        matriz[0, 2] = 2 * (xz + yw)
 
-        m[1, 0] = 2 * (xy + zw)
-        m[1, 1] = 1 - 2 * (xx + zz)
-        m[1, 2] = 2 * (yz - xw)
+        matriz[1, 0] = 2 * (xy + zw)
+        matriz[1, 1] = 1 - 2 * (xx + zz)
+        matriz[1, 2] = 2 * (yz - xw)
 
-        m[2, 0] = 2 * (xz - yw)
-        m[2, 1] = 2 * (yz + xw)
-        m[2, 2] = 1 - 2 * (xx + yy)
+        matriz[2, 0] = 2 * (xz - yw)
+        matriz[2, 1] = 2 * (yz + xw)
+        matriz[2, 2] = 1 - 2 * (xx + yy)
 
-        # O OpenGL utiliza layout de coluna, logo aplicamos a transposta
-        return m.T
+        # O OpenGL utiliza o layout de ordenação por coluna, por isso a matriz deve ser transposta[cite: 1]
+        return matriz.T
 
 
-def map_to_sphere(mouse_x, mouse_y, width, height):
-    """ Mapeamento de Coordenadas 2D para a Hemisfério 3D (Trackball) """
-    nx = (2.0 * mouse_x - width) / width
-    ny = (height - 2.0 * mouse_y) / height
-    r2 = nx * nx + ny * ny
+def mapear_coordenadas_para_esfera(mouse_x, mouse_y, largura_tela, altura_tela):
+    """ Mapeia as coordenadas 2D do mouse para uma hemisfério 3D simulando um Trackball[cite: 1]. """
+    coord_normalizada_x = (2.0 * mouse_x - largura_tela) / largura_tela
+    coord_normalizada_y = (altura_tela - 2.0 * mouse_y) / altura_tela
+    raio_quadrado = coord_normalizada_x ** 2 + coord_normalizada_y ** 2
 
-    if r2 <= 1.0:
-        nz = math.sqrt(1.0 - r2)
+    if raio_quadrado <= 1.0:
+        coord_normalizada_z = math.sqrt(1.0 - raio_quadrado)
     else:
-        mag = math.sqrt(r2)
-        nx /= mag
-        ny /= mag
-        nz = 0.0
-    return np.array([nx, ny, nz])
+        magnitude = math.sqrt(raio_quadrado)
+        coord_normalizada_x /= magnitude
+        coord_normalizada_y /= magnitude
+        coord_normalizada_z = 0.0
+
+    return np.array([coord_normalizada_x, coord_normalizada_y, coord_normalizada_z])
 
 
 # =====================================================================
 # LOOP PRINCIPAL DO APLICATIVO
 # =====================================================================
-def main():
+def funcao_principal():
     pygame.init()
-    display = (800, 600)
-    pygame.display.set_mode(display, DOUBLEBUF | OPENGL)
+    dimensoes_tela = (800, 600)
+    pygame.display.set_mode(dimensoes_tela, DOUBLEBUF | OPENGL)
     pygame.display.set_caption("Aplicação Interativa 3D - Computação Gráfica")
 
-    # Configurar projeção em perspectiva
+    # Configuração de câmera: projeção em perspectiva[cite: 1]
     glMatrixMode(GL_PROJECTION)
-    gluPerspective(45, (display[0] / display[1]), 0.1, 50.0)
+    gluPerspective(45, (dimensoes_tela[0] / dimensoes_tela[1]), 0.1, 50.0)
 
-    setup_lighting()
+    configurar_iluminacao()
 
-    # Espaço da Câmera
+    # Ajuste do espaço e posição da câmera na cena[cite: 1]
     glMatrixMode(GL_MODELVIEW)
     glLoadIdentity()
-    gluLookAt(0, 2, 5,  # Posição da Câmera
-              0, 0, 0,  # Foco
-              0, 1, 0)  # Vetor Up
+    gluLookAt(0, 2, 5,  # Posição onde a câmera está
+              0, 0, 0,  # Ponto para onde a câmera aponta (Foco)
+              0, 1, 0)  # Orientação do vetor Para Cima (Up)
 
-    # Variáveis de Controle
-    current_quat = Quaternion()
-    is_dragging = False
-    last_mouse_pos = None
+    # Inicialização das variáveis de controle de interatividade[cite: 1]
+    quaternio_acumulado = Quaternio()
+    arrastando_mouse = False
+    ultima_posicao_esfera_mouse = None
 
-    # Cor inicial usando OpenCV
-    hue_val = 100
-    obj_color = get_color_from_opencv(hue_val)
+    # Inicialização da cor do objeto usando OpenCV[cite: 1]
+    valor_matiz_atual = 100
+    cor_renderizacao = obter_cor_pelo_opencv(valor_matiz_atual)
 
-    clock = pygame.time.Clock()
+    controle_tempo = pygame.time.Clock()
 
     while True:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
+        for evento in pygame.event.get():
+            if evento.type == pygame.QUIT:
                 pygame.quit()
                 sys.exit()
 
-            # Capturar eventos de clique e arraste do mouse
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 1:
-                    is_dragging = True
-                    last_mouse_pos = map_to_sphere(event.pos[0], event.pos[1], display[0], display[1])
-            elif event.type == pygame.MOUSEBUTTONUP:
-                if event.button == 1:
-                    is_dragging = False
-            elif event.type == pygame.MOUSEMOTION:
-                if is_dragging:
-                    current_mouse_pos = map_to_sphere(event.pos[0], event.pos[1], display[0], display[1])
+            # Gerenciamento de eventos de clique e movimento do mouse[cite: 1]
+            elif evento.type == pygame.MOUSEBUTTONDOWN:
+                if evento.button == 1:
+                    arrastando_mouse = True
+                    ultima_posicao_esfera_mouse = mapear_coordenadas_para_esfera(evento.pos[0], evento.pos[1],
+                                                                                 dimensoes_tela[0], dimensoes_tela[1])
 
-                    # Determinar eixo de rotação via produto vetorial
-                    axis = np.cross(last_mouse_pos, current_mouse_pos)
-                    mag = np.linalg.norm(axis)
+            elif evento.type == pygame.MOUSEBUTTONUP:
+                if evento.button == 1:
+                    arrastando_mouse = False
 
-                    if mag > 1e-5:
-                        axis = axis / mag
-                        # Determinar ângulo via produto escalar
-                        dot = np.dot(last_mouse_pos, current_mouse_pos)
-                        dot = max(-1.0, min(1.0, dot))
-                        angle = math.acos(dot)
+            elif evento.type == pygame.MOUSEMOTION:
+                if arrastando_mouse:
+                    posicao_atual_esfera_mouse = mapear_coordenadas_para_esfera(evento.pos[0], evento.pos[1],
+                                                                                dimensoes_tela[0], dimensoes_tela[1])
 
-                        # Construir quatérnio unitário (q = [cos(a/2), sin(a/2)*v])
-                        s = math.sin(angle / 2.0)
-                        rot_quat = Quaternion(math.cos(angle / 2.0), axis[0] * s, axis[1] * s, axis[2] * s)
+                    # Determinação do eixo de rotação através do produto vetorial[cite: 1]
+                    eixo_rotacao = np.cross(ultima_posicao_esfera_mouse, posicao_atual_esfera_mouse)
+                    magnitude_eixo = np.linalg.norm(eixo_rotacao)
 
-                        # Multiplicar pelo quatérnio atual para acumular a orientação
-                        current_quat = rot_quat.multiply(current_quat)
+                    if magnitude_eixo > 1e-5:
+                        eixo_rotacao = eixo_rotacao / magnitude_eixo
 
-                    last_mouse_pos = current_mouse_pos
+                        # Determinação do ângulo de rotação através do produto escalar[cite: 1]
+                        produto_escalar = np.dot(ultima_posicao_esfera_mouse, posicao_atual_esfera_mouse)
+                        produto_escalar = max(-1.0, min(1.0, produto_escalar))
+                        angulo_rotacao = math.acos(produto_escalar)
 
-            # Interatividade dinâmica: alterar cor de material via OpenCV (Setas Direita/Esquerda)
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_RIGHT:
-                    hue_val = (hue_val + 10) % 180
-                    obj_color = get_color_from_opencv(hue_val)
-                elif event.key == pygame.K_LEFT:
-                    hue_val = (hue_val - 10) % 180
-                    obj_color = get_color_from_opencv(hue_val)
+                        # Construção do quatérnio unitário correspondente ao movimento (q = [cos(a/2), sen(a/2)*v])[cite: 1]
+                        seno_meio_angulo = math.sin(angulo_rotacao / 2.0)
+                        quaternio_movimento = Quaternio(
+                            math.cos(angulo_rotacao / 2.0),
+                            eixo_rotacao[0] * seno_meio_angulo,
+                            eixo_rotacao[1] * seno_meio_angulo,
+                            eixo_rotacao[2] * seno_meio_angulo
+                        )
 
+                        # Multiplicação para acumular a nova orientação à orientação existente[cite: 1]
+                        quaternio_acumulado = quaternio_movimento.multiplicar(quaternio_acumulado)
+
+                    ultima_posicao_esfera_mouse = posicao_atual_esfera_mouse
+
+            # Alteração dinâmica de cor do material usando os direcionais do teclado[cite: 1]
+            elif evento.type == pygame.KEYDOWN:
+                if evento.key == pygame.K_RIGHT:
+                    valor_matiz_atual = (valor_matiz_atual + 10) % 180
+                    cor_renderizacao = obter_cor_pelo_opencv(valor_matiz_atual)
+                elif evento.key == pygame.K_LEFT:
+                    valor_matiz_atual = (valor_matiz_atual - 10) % 180
+                    cor_renderizacao = obter_cor_pelo_opencv(valor_matiz_atual)
+
+        # Limpeza dos buffers de cor e de profundidade antes de cada quadro[cite: 1]
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT)
         glPushMatrix()
 
-        # Converter quatérnio final acumulado em matriz 4x4 e enviar ao pipeline
-        rot_matrix = current_quat.to_matrix()
-        glMultMatrixf(rot_matrix)
+        # Conversão do quatérnio final para matriz 4x4 e aplicação no pipeline de renderização[cite: 1]
+        matriz_rotacao_final = quaternio_acumulado.para_matriz_opengl()
+        glMultMatrixf(matriz_rotacao_final)
 
-        # Renderização do Modelo 3D com Normais
-        glColor3f(*obj_color)
+        # Processo de renderização do modelo 3D calculando vetores normais para reflexão de luz[cite: 1]
+        glColor3f(*cor_renderizacao)
         glBegin(GL_TRIANGLES)
-        for face in FACES:
-            v0, v1, v2 = VERTICES[face[0]], VERTICES[face[1]], VERTICES[face[2]]
+        for face in FACES_PIRAMIDE:
+            vertice_0 = VERTICES_PIRAMIDE[face[0]]
+            vertice_1 = VERTICES_PIRAMIDE[face[1]]
+            vertice_2 = VERTICES_PIRAMIDE[face[2]]
 
-            # Aplicar vetor normal da face
-            normal = compute_normal(v0, v1, v2)
-            glNormal3fv(normal)
+            # Cálculo e aplicação do vetor normal da face atual[cite: 1]
+            vetor_normal_face = calcular_normal(vertice_0, vertice_1, vertice_2)
+            glNormal3fv(vetor_normal_face)
 
-            # Desenhar os vértices
-            glVertex3fv(v0)
-            glVertex3fv(v1)
-            glVertex3fv(v2)
+            # Desenho dos vértices que compõem a face[cite: 1]
+            glVertex3fv(vertice_0)
+            glVertex3fv(vertice_1)
+            glVertex3fv(vertice_2)
         glEnd()
 
         glPopMatrix()
         pygame.display.flip()
-        clock.tick(60)
+
+        # Limite da taxa de atualização travado em 60 quadros por segundo[cite: 1]
+        controle_tempo.tick(60)
 
 
 if __name__ == "__main__":
-    main()
+    funcao_principal()
